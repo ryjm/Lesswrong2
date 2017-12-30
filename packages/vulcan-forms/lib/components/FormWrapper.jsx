@@ -85,10 +85,9 @@ class FormWrapper extends PureComponent {
     */
     const mapFieldNameToField = fieldName => {
       const field = this.getSchema()[fieldName];
-      const temp =  field.resolveAs && field.type.definitions[0].type === Array
+      return field.resolveAs && field.resolveAs.fieldName === fieldName && field.type.definitions[0].type === Array
         ? `${fieldName}{_id}` // if it's a custom resolver, add a basic query to its _id
         : fieldName; // else just ask for the field name
-      return temp
     }
     queryFields = queryFields.map(mapFieldNameToField);
     mutationFields = mutationFields.map(mapFieldNameToField);
