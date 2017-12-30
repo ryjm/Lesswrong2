@@ -14,11 +14,12 @@ Posts.checkAccess = (currentUser, post) => {
 
 const sunshineRegimentActions = [
   'posts.edit.all',
+  'posts.moderate.all',
 ];
 Users.groups.sunshineRegiment.can(sunshineRegimentActions);
 
 
-const trustedUsersActions = [
+const trustLevel1Actions = [
   'posts.moderate.own',
 ];
-Users.groups.trustedUsers.can(trustedUsersActions);
+Users.groups.trustLevel1.can(trustLevel1Actions);
