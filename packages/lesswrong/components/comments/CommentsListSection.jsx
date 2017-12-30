@@ -60,15 +60,22 @@ class CommentsListSection extends Component {
           <Components.CommentsList
             currentUser={currentUser}
             comments={comments}
+            post={this.props.post}
             highlightDate={this.state.highlightDate}
+            postEditMutation={this.props.postEditMutation}
           />
           {!!currentUser ?
             <div className="posts-comments-thread-new">
-              <h4><FormattedMessage id="comments.new"/></h4>
-              <Components.CommentsNewForm
-                postId={postId}
-                type="comment"
-              />
+              { this.props.post.bannedUserIds.indexOf(currentUser._id) == -1 &&
+                <div>
+                  <h4><FormattedMessage id="comments.new"/></h4>
+                  {/*  TODO: Posting a comment if you're banned from commenting results in an error */} 
+                  <Components.CommentsNewForm
+                    postId={postId}
+                    type="comment"
+                  />
+                </div>
+              }
             </div> :
             <div>
               <Components.ModalTrigger

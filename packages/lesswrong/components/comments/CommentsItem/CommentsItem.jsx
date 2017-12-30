@@ -112,13 +112,14 @@ class CommentsItem extends PureComponent {
     const params = this.props.router.params;
     const commentLink = "/posts/"+params._id+"/"+params.slug+"/"+comment._id;
     const deletedClass = this.props.comment.deleted ? " deleted" : "";
+    const postEditMutation = this.props.postEditMutation;
+    const post = this.props.post
     const commentBody = this.props.collapsed ? "" : (
       <div>
         {this.state.showEdit ? this.renderEdit() : this.renderComment()}
         {this.renderCommentBottom()}
       </div>
     )
-
     return (
       <div className={"comments-item" + deletedClass} id={comment._id}>
         <div className="comments-item-body">
@@ -185,6 +186,11 @@ class CommentsItem extends PureComponent {
             { this.renderSubscribeMenuItem() }
             { this.renderReportMenuItem() }
             { this.renderStatsMenuItem() }
+            <Components.BanUserFromPostMenuItem
+              comment={this.props.comment}
+              post={this.props.post}
+              postEditMutation={this.props.postEditMutation}
+            />
           </IconMenu>
           { this.state.showReport &&
             <Components.ReportForm

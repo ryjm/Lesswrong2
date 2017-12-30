@@ -16,3 +16,9 @@ const sunshineRegimentActions = [
   'posts.edit.all',
 ];
 Users.groups.sunshineRegiment.can(sunshineRegimentActions);
+
+
+const trustedUsersActions = [
+  'posts.moderate.own',
+];
+Users.groups.trustedUsers.can(trustedUsersActions);

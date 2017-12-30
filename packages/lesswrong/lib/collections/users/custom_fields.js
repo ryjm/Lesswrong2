@@ -67,6 +67,22 @@ Users.addField([
   },
 
   {
+    fieldName: 'moderationGuidelines',
+    fieldSchema: {
+      type: Object,
+      optional: true,
+      label: "Personal Moderation Policy",
+      placeholder: "How you moderate comments on your own posts. Examples:\n'Easygoing - may give warnings if people are detracting from conversation and delete comments if necessary', or 'Reign of terror - I delete anything that seems bad to my judgment without comment.'",
+      viewableBy: ['guests'],
+      editableBy: ['members'],
+      insertableBy: ['members'],
+      control: 'textarea',
+      blackbox: true,
+      order: 55,
+    }
+  },
+
+  {
     fieldName: 'twitterUsername',
     fieldSchema: {
       hidden: true,

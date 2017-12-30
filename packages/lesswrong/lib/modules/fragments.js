@@ -140,6 +140,14 @@ registerFragment(`
 `);
 
 registerFragment(`
+  fragment PostsCommentThread on Post {
+    # example-forum
+    _id
+    bannedUserIds
+  }
+`);
+
+registerFragment(`
   fragment LWPostsPage on Post {
     ...LWPostsList
     body
@@ -151,6 +159,7 @@ registerFragment(`
     canonicalCollectionSlug
     canonicalSequenceId
     canonicalBookId
+    bannedUserIds
     canonicalSequence {
       title
     }
