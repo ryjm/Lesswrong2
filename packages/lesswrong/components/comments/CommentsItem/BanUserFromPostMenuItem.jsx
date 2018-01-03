@@ -18,7 +18,7 @@ class BanUserFromPostMenuItem extends PureComponent {
       documentId: this.props.comment.postId,
       set: {bannedUserIds:bannedUserIds},
       unset: {}
-    }).then(()=>console.log(`User ${commentUserId} added to post banned-list: ${bannedUserIds}`)).catch(/* error */);
+    }).then(()=>console.log(`User ${commentUserId} added to post banned-list: ${bannedUserIds}`))
   }
 
   render() {

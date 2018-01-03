@@ -186,11 +186,7 @@ class CommentsItem extends PureComponent {
             { this.renderSubscribeMenuItem() }
             { this.renderReportMenuItem() }
             { this.renderStatsMenuItem() }
-            <Components.BanUserFromPostMenuItem
-              comment={this.props.comment}
-              post={this.props.post}
-              postEditMutation={this.props.postEditMutation}
-            />
+            
           </IconMenu>
           { this.state.showReport &&
             <Components.ReportForm
