@@ -1,5 +1,10 @@
 import Users from "meteor/vulcan:users";
 
+const moderationGroup = {
+  order:60,
+  name: "moderation",
+  label: "Moderation"
+}
 
 Users.addField([
   /**
@@ -67,16 +72,58 @@ Users.addField([
   },
 
   {
+    fieldName: 'moderationPolicy',
+    fieldSchema: {
+      type: String,
+      optional: true,
+      control: "select",
+      group: moderationGroup,
+      label: "Policy",
+      viewableBy: ['guests'],
+      editableBy: ['members'],
+      insertableBy: ['members'],
+      blackbox: true,
+      order: 55,
+      form: {
+        options: function () { // options for the select form control
+          return [
+            {value: 1, label: "Easygoing - I just delete obvious spam"},
+            {value: 2, label: "Norm Enforcing - I try to enforce particular rules (see below)"},
+            {value: 3, label: "Reign of Terror - I delete anything I judge to be annoying"},
+          ];
+        }
+      },
+    }
+  },
+
+  {
     fieldName: 'moderationGuidelines',
     fieldSchema: {
       type: Object,
       optional: true,
-      label: "Personal Moderation Policy",
-      placeholder: "How you moderate comments on your own posts. Examples:\n'Easygoing - may give warnings if people are detracting from conversation and delete comments if necessary', or 'Reign of terror - I delete anything that seems bad to my judgment without comment.'",
+      group: moderationGroup,
+      label: "Special Guidelines",
+      placeholder: "Any particular norms or guidelines that you like to cultivate in your comment sections? (If you are specific, LW moderates can help enforce this)",
       viewableBy: ['guests'],
       editableBy: ['members'],
       insertableBy: ['members'],
       control: 'textarea',
+      blackbox: true,
+      order: 55,
+    }
+  },
+
+  {
+    fieldName: 'moderatorAssistance',
+    fieldSchema: {
+      type: Boolean,
+      optional: true,
+      group: moderationGroup,
+      label: "I'm happy for LW site moderators to help enforce my policy",
+      viewableBy: ['guests'],
+      editableBy: ['members'],
+      insertableBy: ['members'],
+      control: 'checkbox',
       blackbox: true,
       order: 55,
     }

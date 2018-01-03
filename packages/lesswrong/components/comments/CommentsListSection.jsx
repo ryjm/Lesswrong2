@@ -49,10 +49,17 @@ class CommentsListSection extends Component {
         </div> : "All comments loaded"}
   </div>
 
+  currentUserCanComment = () => {
+    return this.props.currentUser && !this.props.post.bannedUserIds || this.props.post.bannedUserIds.indexOf(this.props.currentUser._id) == -1
+  }
+
   render() {
     const {currentUser, comments, postId, router} = this.props;
     const currentQuery = (!_.isEmpty(router.location.query) && router.location.query) ||  {view: 'postCommentsTop', limit: 50};
     const currentLocation = router.location;
+
+    // TODO: Update "author has blocked you" message to include link to moderation guidelines (both author and LW)
+
     return (
       <Components.Section title="Comments"
         titleComponent={this.renderTitleComponent()}>
@@ -66,15 +73,17 @@ class CommentsListSection extends Component {
           />
           {!!currentUser ?
             <div className="posts-comments-thread-new">
-              { this.props.post.bannedUserIds.indexOf(currentUser._id) == -1 &&
+              { this.currentUserCanComment() ?
                 <div>
                   <h4><FormattedMessage id="comments.new"/></h4>
-                  {/*  TODO: Posting a comment if you're banned from commenting results in an error */} 
+                  {/*  TODO: Posting a comment if you're banned from commenting results in an error */}
                   <Components.CommentsNewForm
                     postId={postId}
                     type="comment"
                   />
                 </div>
+              :
+              <div><br/>This author has blocked you from commenting on this post.</div>
               }
             </div> :
             <div>

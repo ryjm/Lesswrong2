@@ -186,7 +186,12 @@ class CommentsItem extends PureComponent {
             { this.renderSubscribeMenuItem() }
             { this.renderReportMenuItem() }
             { this.renderStatsMenuItem() }
-            
+            <Components.BanUserFromPostMenuItem
+              comment={this.props.comment}
+              post={this.props.post}
+              currentUser={this.props.currentUser}
+              postEditMutation={this.props.postEditMutation}
+            />
           </IconMenu>
           { this.state.showReport &&
             <Components.ReportForm
@@ -199,10 +204,10 @@ class CommentsItem extends PureComponent {
           }
           { this.state.showStats &&
             <Dialog title="Comment Stats"
-                    modal={false}
-                    actions={<FlatButton label="Close" primary={true} onTouchTap={ this.hideStats }/>}
-                    open={this.state.showStats}
-                    onRequestClose={this.hideStats}
+              modal={false}
+              actions={<FlatButton label="Close" primary={true} onTouchTap={ this.hideStats }/>}
+              open={this.state.showStats}
+              onRequestClose={this.hideStats}
             >
               <Components.CommentVotesInfo documentId={this.props.comment._id} />
             </Dialog>
