@@ -143,13 +143,21 @@ class CommentsItem extends PureComponent {
     const comment = this.props.comment;
     const currentUser = this.props.currentUser;
     const blockedReplies = comment.repliesBlockedUntil && new Date(comment.repliesBlockedUntil) > new Date();
-    const showReplyButton = !comment.isDeleted && !!this.props.currentUser && (
-      !blockedReplies || Users.canDo(currentUser,'comments.replyOnBlocked.all'))
+    const bannedUserIds = _.clone(this.props.post.bannedUserIds) || []
+    const bannedReply = currentUser && bannedUserIds.indexOf(currentUser._id) != -1
+    const showReplyButton = (
+      !comment.isDeleted &&
+      !!this.props.currentUser &&
+      (
+        !blockedReplies || Users.canDo(currentUser,'comments.replyOnBlocked.all')
+      ) &&
+      !bannedReply
+    )
 
     return (
       <div className="comments-item-bottom">
         { blockedReplies &&
-          <div className="comment-blocked-replies">
+          <div className="comment-blocked-replies">)
             A moderator has deactivated replies on this comment until {moment(new Date(comment.repliesBlockedUntil)).calendar()}
           </div>
         }

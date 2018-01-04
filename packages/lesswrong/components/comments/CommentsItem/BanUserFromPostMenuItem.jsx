@@ -10,13 +10,14 @@ class BanUserFromPostMenuItem extends PureComponent {
   }
 
   currentUserCanBan = () => {
-    console.log(this.props.currentUser)
-    console.log("owns", Users.owns(this.props.currentUser, this.props.post))
-    console.log("moderate all", Users.canDo(this.props.currentUser,"posts.moderate.all"))
-    console.log("moderate own", Users.canDo(this.props.currentUser,"posts.moderate.own"))
     const canBan = this.props.currentUser &&
-      (Users.canDo(this.props.currentUser,"posts.moderate.all") ||
-      (Users.canDo(this.props.currentUser,"posts.moderate.own") && Users.owns(this.props.currentUser, this.props.post)))
+      (
+        Users.canDo(this.props.currentUser,"posts.moderate.all") ||
+        (
+          Users.canDo(this.props.currentUser,"posts.moderate.own") &&
+          this.props.post.user.moderationPolicy
+        )
+      )
     return canBan
   }
 

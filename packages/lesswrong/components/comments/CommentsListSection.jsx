@@ -53,6 +53,10 @@ class CommentsListSection extends Component {
     return this.props.currentUser && !this.props.post.bannedUserIds || this.props.post.bannedUserIds.indexOf(this.props.currentUser._id) == -1
   }
 
+  renderBannedMessage = () => {
+    return <div className="i18n-message author_has_banned_you"><FormattedMessage id="comments.author_has_banned_you"/></div>
+  }
+
   render() {
     const {currentUser, comments, postId, router} = this.props;
     const currentQuery = (!_.isEmpty(router.location.query) && router.location.query) ||  {view: 'postCommentsTop', limit: 50};
@@ -64,6 +68,7 @@ class CommentsListSection extends Component {
       <Components.Section title="Comments"
         titleComponent={this.renderTitleComponent()}>
         <div className="posts-comments-thread">
+          { !this.currentUserCanComment() && this.renderBannedMessage() }
           <Components.CommentsList
             currentUser={currentUser}
             comments={comments}
@@ -73,7 +78,7 @@ class CommentsListSection extends Component {
           />
           {!!currentUser ?
             <div className="posts-comments-thread-new">
-              { this.currentUserCanComment() ?
+              { this.currentUserCanComment() &&
                 <div>
                   <h4><FormattedMessage id="comments.new"/></h4>
                   {/*  TODO: Posting a comment if you're banned from commenting results in an error */}
@@ -82,14 +87,13 @@ class CommentsListSection extends Component {
                     type="comment"
                   />
                 </div>
-              :
-              <div><br/>This author has blocked you from commenting on this post.</div>
+
               }
             </div> :
             <div>
               <Components.ModalTrigger
                 component={<a href="#"><FormattedMessage id="comments.please_log_in"/></a>}
-                size="small">
+              size="small">
                 <Components.AccountsLoginForm/>
               </Components.ModalTrigger>
             </div>

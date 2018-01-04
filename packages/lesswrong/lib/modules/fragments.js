@@ -124,6 +124,9 @@ registerFragment(`
     currentUserVotes{
       ...VoteFragment
     }
+    user {
+      moderationPolicy
+    }
     baseScore
     unlisted
     score
