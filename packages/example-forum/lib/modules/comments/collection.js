@@ -55,7 +55,7 @@ Comments.checkAccess = (currentUser, comment) => {
     return true;
   } else if (comment.isDeleted) {
     return false;
-  } else {
+  } else { 
     return true;
   }
 }
