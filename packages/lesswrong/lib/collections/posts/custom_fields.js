@@ -474,8 +474,8 @@ Posts.addField([
     fieldSchema: {
       type: Array,
       viewableBy: ['members'],
-      insertableBy: ['members'],
-      editableBy: ['members'],
+      insertableBy: ['trustLevel1', 'sunshineRegiment'],
+      editableBy: ['trustLevel1', 'sunshineRegiment'],
       optional: true,
     }
   },
